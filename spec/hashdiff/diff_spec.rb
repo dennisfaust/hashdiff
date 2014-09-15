@@ -190,6 +190,16 @@ describe HashDiff do
     end
   end
 
+  context ':show_common requested' do
+      let(:a) { {c:'car', d:['boat', 'plane'] } }
+      let(:b) { {c:'car', d:['boat', 'plane', 'skates'] } }
+
+      it 'should return the matching values as well as diffs' do
+        diff = HashDiff.diff(a, b, show_common: true)
+        expect(diff).to eq([["=", "c", "car"], ["=", "d[0]", "boat"], ["=", "d[1]", "plane"], ["+", "d[2]", "skates"]])
+      end
+  end
+
   context 'with custom comparison' do
     let(:a) { {a:'car', b:'boat', c:'plane'} }
     let(:b) { {a:'bus', b:'truck', c:' plan'} }
